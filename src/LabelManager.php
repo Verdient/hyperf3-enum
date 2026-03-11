@@ -10,6 +10,8 @@ use ReflectionClass;
 use UnitEnum;
 use Verdient\Hyperf3\Di\Container;
 
+use function Hyperf\Config\config;
+
 /**
  * 标签管理器
  *
@@ -50,14 +52,34 @@ class LabelManager
     public static function i18nKey(UnitEnum $enum): string
     {
         if (!$attribute = static::attribute($enum)) {
-            return str_replace('\\', '.', $enum::class) . '.' . $enum->name;
+            return static::generateI18nKeyByEnum($enum);
         }
 
         if (!$attribute->i18nKey) {
-            return str_replace('\\', '.', $enum::class) . '.' . $enum->name;
+            return static::generateI18nKeyByEnum($enum);
         }
 
         return $attribute->i18nKey;
+    }
+
+    /**
+     * 通过枚举生成国际化键名
+     *
+     * @param UnitEnum $enum 枚举对象
+     *
+     * @author Verdient。
+     */
+    protected static function generateI18nKeyByEnum(UnitEnum $enum): string
+    {
+        $class = $enum::class;
+
+        $localizable = config('enum.localizable', []);
+
+        if (isset($localizable[$class])) {
+            $class = $localizable[$class];
+        }
+
+        return str_replace('\\', '.', $class) . '.' . $enum->name;
     }
 
     /**
