@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Verdient\Hyperf3\Enum;
 
+use Hyperf\Di\Annotation\AbstractAnnotation;
+
 use Attribute;
 
 /**
@@ -12,4 +14,4 @@ use Attribute;
  * @author Verdient。
  */
 #[Attribute(Attribute::TARGET_CLASS)]
-class Localizable {}
+class Localizable extends AbstractAnnotation {}
