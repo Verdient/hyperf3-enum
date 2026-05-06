@@ -152,6 +152,22 @@ class LabelManager
             }
         }
 
-        return static::content($enum) ?: $enum->name;
+        $content = static::content($enum);
+
+        if ($content === null) {
+            return $enum->name;
+        }
+
+        if (empty($replaces)) {
+            return $content;
+        }
+
+        $replaces2 = [];
+
+        foreach ($replaces as $key => $value) {
+            $replaces2[':' . $key] = (string) $value;
+        }
+
+        return strtr($content, $replaces2);
     }
 }
