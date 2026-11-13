@@ -5,7 +5,7 @@
         "hyperf/config": "^3.2",
         "hyperf/contract": "^3.2",
         "hyperf/di": "^3.2",
-        "verdient/hyperf3-di": "^2.1"
+        "verdient/hyperf3-di": "^3.2"
     },
     "autoload": {
         "psr-4": {
